@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+.sites-runtime
+.openai
+assets/reference-video.mp4
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

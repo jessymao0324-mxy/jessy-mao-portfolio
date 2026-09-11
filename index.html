@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jessy Mao | Data & Business Analytics</title>
+    <meta
+      name="description"
+      content="Personal portfolio of Jessy Mao, showcasing projects, analytics experience, business experience and creative work."
+    />
+    <meta property="og:title" content="Jessy Mao | Data & Business Analytics" />
+    <meta
+      property="og:description"
+      content="Personal portfolio of Jessy Mao, showcasing projects, analytics experience, business experience and creative work."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/hero-room-generated-v2.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jessy Mao | Data & Business Analytics" />
+    <meta
+      name="twitter:description"
+      content="Personal portfolio of Jessy Mao, showcasing projects, analytics experience, business experience and creative work."
+    />
+    <meta name="twitter:image" content="/assets/hero-room-generated-v2.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=monash-contact-polish-1" />
+    <link rel="stylesheet" href="experience-overrides.css?v=monash-contact-polish-1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Back to top">
+        <span>JESSY MAO</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#about">About Me</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Life</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="edit-controls" aria-label="Edit controls">
+        <button class="edit-toggle" type="button" id="editToggle">Edit</button>
+        <button class="edit-toggle reset-toggle" type="button" id="resetEdits">Reset</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <img
+          class="hero-room-image"
+          id="heroRoomImage"
+          src="assets/hero-room-generated-v2.png"
+          alt="A warm 3D miniature creative room for Jessy Mao's portfolio homepage"
+        />
+        <div class="hero-copy">
+          <p>/ My Space</p>
+          <h1>A small room,<br /><span>a bigger world.</span></h1>
+          <p>Where ideas, photos, plans and daydreams come together.</p>
+        </div>
+        <div class="zoom-controls" aria-label="Hero zoom controls">
+          <button type="button" id="zoomOut" aria-label="Zoom out">-</button>
+          <button type="button" id="zoomReset" aria-label="Reset zoom">92%</button>
+          <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+        </div>
+        <p class="hero-handwritten">More<br />curious me</p>
+        <p class="hero-note">Same room<br />Different dreams</p>
+        <p class="hero-coordinates">40.7128° N&nbsp;&nbsp;&nbsp;74.0060° W</p>
+        <div class="tag-cloud hero-tags" id="personalityTags" aria-hidden="true"></div>
+      </section>
+
+      <section id="about" class="about-image-section about-clickable about-gsap-motion">
+        <img src="assets/about-reference-upscaled-no-header.png" alt="About me layout reference for Jessy Mao" />
+        <div class="about-photo-hotspots" aria-label="Clickable photo moments">
+          <button class="about-photo-button about-photo-profile" type="button" data-photo="assets/profile.jpg" data-caption="Jessy Mao" aria-label="Open Jessy Mao photo"></button>
+          <button class="about-photo-button about-photo-city" type="button" data-photo="assets/london-big-ben.jpg" data-caption="City lights" aria-label="Open city photo"></button>
+          <button class="about-photo-button about-photo-coffee" type="button" data-photo="assets/about-reference-upscaled-no-header.png" data-caption="Little details" aria-label="Open detail photo"></button>
+          <button class="about-photo-button about-photo-window" type="button" data-photo="assets/london-tower-bridge.jpg" data-caption="Travel notes" aria-label="Open travel photo"></button>
+        </div>
+      </section>
+
+      <section id="education" class="credentials-section education-story-section">
+        <div class="section-heading">
+          <h2><span>Study</span><span>Experience</span></h2>
+          <p class="education-script">Same girl<br />Different chapter</p>
+          <p class="education-side-note">Learning.<br />Exploring.<br />Becoming.</p>
+        </div>
+        <div class="credential-layout">
+          <div class="education-list" id="educationList"></div>
+        </div>
+        <p class="education-footer-note">Two places, one journey — still the same girl, just a little more brave.</p>
+      </section>
+
+      <section id="experience" class="timeline-section">
+        <div class="experience-intro">
+          <h2 data-edit="experienceTitle">Work Experience</h2>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section id="skills" class="skills-image-section" aria-label="Skills and capability notes">
+        <img
+          src="assets/skills-capability-notes.png"
+          alt="Skills and capability notes for Jessy Mao"
+        />
+        <div class="skill-hotspots" aria-label="Clickable skill cards">
+          <button class="skill-hotspot skill-hotspot-analytics" type="button" data-skill-index="0" aria-label="Open Analytics and BI details"></button>
+          <button class="skill-hotspot skill-hotspot-research" type="button" data-skill-index="1" aria-label="Open Research and Insights details"></button>
+          <button class="skill-hotspot skill-hotspot-commercial" type="button" data-skill-index="2" aria-label="Open Commercial and Client details"></button>
+          <button class="skill-hotspot skill-hotspot-languages" type="button" data-skill-index="3" aria-label="Open Languages details"></button>
+        </div>
+      </section>
+
+      <section id="projects" class="life-carousel-section" aria-label="Life beyond work">
+        <span id="life" class="anchor-alias" aria-hidden="true"></span>
+        <div class="life-carousel-heading">
+          <div>
+            <p class="life-carousel-kicker">JESSY MAO · PORTFOLIO 2026</p>
+            <h2 class="life-carousel-title">Life <span>Beyond</span> Work.</h2>
+            <p class="life-carousel-script">Same girl, different chapters ♡</p>
+          </div>
+          <div class="life-carousel-copy">
+            <p>
+              Beyond data and screens, I find inspiration in everyday moments — in places,
+              people, animals and the little things that make life brighter.
+            </p>
+          </div>
+        </div>
+
+        <div class="life-carousel" data-active="0" tabindex="0" aria-roledescription="carousel">
+          <button class="life-carousel-arrow life-carousel-prev" type="button" aria-label="Previous life chapter">←</button>
+          <div class="life-carousel-stage" id="lifeCarouselStage" aria-live="polite"></div>
+          <button class="life-carousel-arrow life-carousel-next" type="button" aria-label="Next life chapter">→</button>
+        </div>
+
+        <div class="life-carousel-bottom">
+          <div class="life-carousel-indicators" id="lifeCarouselIndicators" aria-label="Life chapter controls"></div>
+          <div class="life-carousel-counter" id="lifeCarouselCounter">01 / 08</div>
+        </div>
+
+        <div class="life-carousel-footer">
+          <span>STAY CURIOUS · KEEP EXPLORING</span>
+          <i></i>
+          <span>A BRIGHTER TOMORROW →</span>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <p class="section-index" data-edit="contactIndex">Contact</p>
+        <h2 data-edit="contactTitle">No matter what happens, as long as tomorrow still comes, there is room to try, fail, and begin again.</h2>
+        <div class="contact-list">
+          <a data-contact="email" href="#"></a>
+        </div>
+      </section>
+    </main>
+
+    <div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+      <button class="photo-lightbox-close" type="button" aria-label="Close photo">×</button>
+      <figure>
+        <img src="" alt="" />
+        <figcaption></figcaption>
+      </figure>
+    </div>
+
+    <div class="skill-popover" id="skillPopover" aria-hidden="true">
+      <button class="skill-popover-close" type="button" aria-label="Close skill detail">×</button>
+      <p></p>
+      <h3></h3>
+      <div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="data/site-content.js?v=monash-contact-polish-1"></script>
+    <script src="script.js?v=monash-contact-polish-1"></script>
+  </body>
+</html>
