@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<title>Pop Mart Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>POP MART Business Dashboard</title>
 <meta name="description" content="Interactive dashboard analysing Pop Mart's revenue, IP portfolio, product categories, regions, channels, stores and members, built from HKEX filings.">
 <meta name="author" content="Xiaoyu (Jessy) Mao">
 <style>
@@ -401,6 +401,238 @@ img.big-av { width: 76px; height: 76px; border-radius: 20px; object-fit: cover; 
 .map-list .row2 { font-size: 11.5px; color: var(--ink-3); margin-top: 5px; }
 .map-fallback { height: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 18px; align-content: center; }
 .map-fallback button { border: 0; border-radius: 14px; padding: 18px 10px; font: inherit; font-weight: 700; color: #fff; cursor: pointer; min-height: 120px; }
+
+/* v7: classic header + KPI layout, Inter throughout */
+body, button, input { font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif; font-feature-settings: "cv11", "ss01"; }
+.sec-head { display: block; margin-bottom: 18px; }
+.sec-head .eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .9px; color: var(--r6); background: var(--r1); padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+.sec-head h2 { display: block; background: none; font-size: 26px; font-weight: 800; letter-spacing: -.5px; line-height: 1.2; margin: 0; }
+.sec-head .lead { max-width: 640px; margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+.kpi { display: block; padding: 18px 20px; }
+.kpi .lab { font-size: 11.5px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: .6px; }
+.kpi .val { font-size: 30px; font-weight: 800; letter-spacing: -.8px; margin: 10px 0 6px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .val small { font-size: 15px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; margin-left: 3px; }
+.kpi .delta { display: block; font-size: 12.5px; font-weight: 600; }
+.kpi .delta.up { color: var(--good); } .kpi .delta.down { color: var(--bad); }
+.hero { background: linear-gradient(135deg, #ee2a3e, #b3001b); color: #fff; border: none; box-shadow: 0 10px 24px -12px rgba(179,0,27,.55); }
+.hero .lab { color: rgba(255,255,255,.78); }
+.hero .val small { color: rgba(255,255,255,.85); }
+.hero .delta, .hero .delta.up, .hero .delta.down { display: inline-block; color: #fff; background: rgba(255,255,255,.2); padding: 2px 9px; border-radius: 999px; }
+.card h3 { font-weight: 700; letter-spacing: -.1px; }
+.chart text { font-family: inherit; }
+
+/* ===== v9: light top navigation, pastel product-dashboard look, Pop Mart red accents ===== */
+:root, :root:not([data-theme="light"]), :root[data-theme="dark"] {
+  --brand: #e5162b;
+  --c-red: #e5162b; --c-coral: #ff7a59; --c-amber: #f5a524; --c-yellow: #f7c948; --c-teal: #22b39c; --c-green: #46b77a;
+  --c-sky: #4aa8f0; --c-blue: #4c6fff; --c-purple: #8b6cf6; --c-pink: #f472b6; --c-lilac: #b9a2ff; --c-slate: #8792a8;
+  --ip-monsters: #a8714a; --ip-twinkle: #ff9f45; --ip-skull: #7c5cbf; --ip-crybaby: #f472b6; --ip-dimoo: #4aa8f0; --ip-molly: #7fbf5f;
+  --ip-hirono: #6c7f5c; --ip-haci: #f2c230; --ip-zsiga: #c99a6b; --ip-lic: #4c6fff; --ip-other: #b5bccb; --ip-ext: #dde1e8;
+  --cat-plush: #f472b6; --cat-fig: #4c6fff; --cat-mega: #8b6cf6; --cat-other: #f7c948;
+  --rg-cn: #e5162b; --rg-ap: #22b39c; --rg-am: #f5a524; --rg-eu: #4c6fff;
+  --pos: #22b39c;
+}
+:root { --bg: #eef1f6; --surface: #ffffff; --surface-2: #f6f7fb; --line: #e6e9f0; --grid: #edf0f5; --ink: #141826; --ink-2: #4b5266; --ink-3: #8a91a5;
+  --shadow: 0 1px 2px rgba(20,24,38,.04), 0 10px 30px -14px rgba(20,24,38,.14); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0f121a; --surface: #171b26; --surface-2: #1d2230; --line: #262c3b; --grid: #222838; --ink: #eef1f7; --ink-2: #bcc3d4; --ink-3: #8790a6; } }
+:root[data-theme="dark"] { --bg: #0f121a; --surface: #171b26; --surface-2: #1d2230; --line: #262c3b; --grid: #222838; --ink: #eef1f7; --ink-2: #bcc3d4; --ink-3: #8790a6; }
+
+/* top navigation */
+body { display: block; background: var(--bg); }
+.side { position: sticky; top: 0; z-index: 40; height: auto; flex-direction: row; align-items: center; gap: 18px; padding: 12px max(24px, calc((100vw - 1240px) / 2 + 28px));
+  background: color-mix(in srgb, var(--surface) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .side { background: color-mix(in srgb, var(--surface) 86%, transparent); border-right: 0; } }
+:root[data-theme="dark"] .side { background: color-mix(in srgb, var(--surface) 86%, transparent); border-right: 0; }
+.brand { flex-direction: row; align-items: center; gap: 12px; padding: 0; border: 0; flex: none; }
+.logo-img { width: 104px; border-radius: 8px; box-shadow: none; }
+.brand h1 { color: var(--ink); font-size: 14px; line-height: 1.15; }
+.brand p { color: var(--ink-3); font-size: 11.5px; display: block; }
+.side-label { display: none; }
+nav.tabs { flex-direction: row; gap: 2px; margin: 0 auto; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px; overflow-x: auto; scrollbar-width: none; }
+nav.tabs button { width: auto; white-space: nowrap; padding: 8px 14px; border-radius: 999px; color: var(--ink-2); font-size: 13px; gap: 7px; }
+nav.tabs button svg { width: 16px; height: 16px; }
+nav.tabs button:hover { background: var(--surface); color: var(--ink); }
+nav.tabs button[aria-selected="true"] { background: var(--brand); color: #fff; box-shadow: 0 6px 16px -6px rgba(229,22,43,.6); }
+nav.tabs button[aria-selected="true"] svg { color: #fff; }
+.side-foot { margin: 0; padding: 0; border: 0; flex: none; }
+.side .theme-btn { width: auto; background: var(--surface); color: var(--ink-2); border: 1px solid var(--line); padding: 8px 14px; font-weight: 600; }
+.wrap { max-width: 1240px; padding: 0 28px 48px; }
+@media (max-width: 1100px) { .brand div { display: none; } }
+@media (max-width: 860px) {
+  .side { flex-wrap: wrap; padding: 10px 14px; gap: 10px; }
+  nav.tabs { order: 3; width: 100%; margin: 0; }
+  nav.tabs button svg { display: none; }
+  .side-foot { margin-left: auto; }
+}
+
+/* cards */
+.card { border-radius: 22px; border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px 22px; }
+.card h3 { font-size: 15px; font-weight: 700; }
+.grid { gap: 18px; }
+
+/* section header */
+.sec-head .eyebrow { color: var(--brand); background: color-mix(in srgb, var(--brand) 10%, transparent); }
+
+/* KPI cards: pastel icon chips */
+.kpi { position: relative; padding: 20px 22px; }
+.kic { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--kc-bg, #eef2ff); }
+.kic svg { width: 19px; height: 19px; fill: none; stroke: var(--kc, #4c6fff); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.g-4 > .kpi:nth-child(1) { --kc: #e5162b; --kc-bg: #ffe8ea; }
+.g-4 > .kpi:nth-child(2) { --kc: #1f9e89; --kc-bg: #ddf6f1; }
+.g-4 > .kpi:nth-child(3) { --kc: #d98a06; --kc-bg: #fff2d8; }
+.g-4 > .kpi:nth-child(4) { --kc: #6d4fe0; --kc-bg: #ede8ff; }
+.kpi .val { margin-top: 12px; }
+.hero { background: radial-gradient(120% 140% at 100% 0%, #ff5a6b 0%, #e5162b 45%, #a8001a 100%); }
+.hero .kic { background: rgba(255,255,255,.18); } .hero .kic svg { stroke: #fff; }
+.hero-avs { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 11.5px; color: rgba(255,255,255,.85); font-weight: 600; }
+.hero-avs .stack { display: flex; }
+.hero-avs img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; margin-left: -8px; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.hero-avs img:first-child { margin-left: 0; }
+
+/* insights / focus */
+.insights { background: linear-gradient(180deg, #fff4f5, var(--surface)); border-color: #ffe0e4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .insights { background: var(--surface); border-color: var(--line); } }
+:root[data-theme="dark"] .insights { background: var(--surface); border-color: var(--line); }
+.insights li:nth-child(1)::marker { color: var(--ip-monsters); } .insights li:nth-child(2)::marker { color: var(--cat-plush); }
+.insights li:nth-child(3)::marker { color: var(--rg-am); } .insights li:nth-child(4)::marker { color: var(--ip-twinkle); }
+.focus-list li:nth-child(1) .fi { background: #f3ebe4; } .focus-list li:nth-child(1) .fi svg { stroke: var(--ip-monsters); }
+.focus-list li:nth-child(2) .fi { background: #fde7f2; } .focus-list li:nth-child(2) .fi svg { stroke: #db3f8c; }
+.focus-list li:nth-child(3) .fi { background: #fff2d8; } .focus-list li:nth-child(3) .fi svg { stroke: #d98a06; }
+.focus-list li:nth-child(4) .fi { background: #ddf6f1; } .focus-list li:nth-child(4) .fi svg { stroke: #1f9e89; }
+
+/* chips & toggles */
+.chips button { background: var(--surface); }
+.chips button.on { background: var(--chip, var(--brand)); border-color: var(--chip, var(--brand)); color: #fff; }
+.chips button .av { background: var(--chip, var(--brand)); }
+.mseg button.on, .seg button.on, .scn-presets button.on { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.ip-rank { color: var(--chip, var(--brand)); background: color-mix(in srgb, var(--chip, var(--brand)) 13%, transparent); }
+.ip-head img.big-av { box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px color-mix(in srgb, var(--chip, var(--brand)) 45%, transparent), 0 12px 24px -12px rgba(0,0,0,.4); }
+.scn-slider input { background: linear-gradient(90deg, #ff9aa5, var(--brand) var(--p, 23%), var(--line) var(--p, 23%) 100%); }
+
+/* IP revenue ranking */
+.rk-head, .rk-row { display: grid; grid-template-columns: 1fr 168px 1fr; align-items: center; }
+.rk-head { margin: 14px 0 4px; font-size: 11px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: .5px; }
+.rk-head > span:nth-child(2) { text-align: center; }
+.rk-scale { position: relative; height: 14px; text-transform: none; letter-spacing: 0; margin: 0 12px; }
+.rk-scale span { position: absolute; transform: translateX(-50%); font-weight: 600; white-space: nowrap; }
+.rk-row { padding: 6px 0; border-radius: 16px; transition: background .2s; }
+.rk-row:hover, .rk-row.on { background: color-mix(in srgb, var(--ipc) 9%, transparent); }
+.rk-left { display: grid; grid-template-columns: 54px 1fr; align-items: center; gap: 10px; padding-left: 10px; }
+.rk-left b { font-size: 15px; font-weight: 800; color: var(--ink); }
+.rk-bar { height: 14px; display: flex; justify-content: flex-end; }
+.rk-bar span { display: block; width: 0; height: 100%; border-radius: 999px 0 0 999px; background: linear-gradient(90deg, color-mix(in srgb, var(--ipc) 55%, transparent), var(--ipc)); transition: width .8s cubic-bezier(.2,.75,.25,1); }
+.rk-mid { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 0; }
+.rk-mid:focus-visible { outline: 2px solid var(--brand); border-radius: 12px; }
+.rk-ring { width: 54px; height: 54px; border-radius: 50%; padding: 3px; background: var(--ipc); display: grid; place-items: center; box-shadow: 0 6px 14px -8px var(--ipc); transition: transform .2s; }
+.rk-row:hover .rk-ring { transform: scale(1.08); }
+.rk-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--surface); display: block; }
+.rk-ring span { width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--surface); display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 800; }
+.rk-mid em { font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: .4px; color: var(--ink); text-align: center; line-height: 1.15; }
+.rk-right { padding: 0 12px; }
+.rk-track { position: relative; height: 54px; }
+.rk-grid { position: absolute; top: -6px; bottom: -6px; width: 0; border-left: 1px dashed var(--line); }
+.rk-grid.zero { border-left: 1.5px solid var(--ink-3); opacity: .5; }
+.rk-stem { position: absolute; top: 50%; height: 3px; margin-top: -1.5px; background: var(--ipc); border-radius: 2px; }
+.rk-dot { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--surface); border: 4px solid var(--ipc); }
+.rk-g { position: absolute; top: 50%; transform: translateY(-50%); font-size: 13.5px; font-weight: 800; color: var(--ipc); white-space: nowrap; filter: saturate(1.2) brightness(.85); }
+.rk-g.neg { color: var(--bad); filter: none; }
+@media (max-width: 760px) {
+  .rk-head, .rk-row { grid-template-columns: 1fr 96px 1fr; }
+  .rk-left { grid-template-columns: 1fr; gap: 4px; padding-left: 4px; } .rk-left b { font-size: 13px; }
+  .rk-ring { width: 42px; height: 42px; } .rk-mid em { font-size: 9.5px; }
+  .rk-g { font-size: 11.5px; } .rk-scale { display: none; }
+}
+
+/* gauge */
+.gauge-card { display: flex; flex-direction: column; }
+.gauge { flex: 1; display: grid; place-items: center; padding: 8px 0 0; }
+.gauge svg { width: 100%; max-width: 380px; height: auto; overflow: visible; }
+.chips2 { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px; }
+.chips2 button { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font: inherit; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.chips2 button.on { background: var(--ip-monsters); border-color: var(--ip-monsters); color: #fff; }
+
+/* map list colours follow the heat scale; map card */
+.map-box { background: linear-gradient(180deg, #f7f9fc, #eef2f8); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .map-box { background: var(--surface-2); } }
+:root[data-theme="dark"] .map-box { background: var(--surface-2); }
+footer { border-top-color: var(--line); }
+
+.rk-g.clip { top: 22%; }
+.kpi .lab { padding-right: 46px; }
+nav.tabs button { padding: 8px 12px; }
+.side .theme-btn { font-size: 12px; padding: 7px 12px; }
+@media (max-width: 1520px) { nav.tabs button svg { display: none; } } @media (max-width: 1240px) { .brand div { display: none; } }
+@media (max-width: 640px) { .kic { width: 32px; height: 32px; top: 12px; right: 12px; } .kic svg { width: 16px; height: 16px; } .kpi .lab { padding-right: 36px; } }
+
+/* ===== v10: light sidebar on the left, more compact layout ===== */
+@media (min-width: 861px) {
+  body { display: grid; grid-template-columns: 228px minmax(0, 1fr); }
+  .side { position: sticky; top: 0; height: 100vh; flex-direction: column; align-items: stretch; gap: 0; padding: 22px 14px 18px;
+    background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; border-right: 1px solid var(--line); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .side { background: var(--surface); border-right: 1px solid var(--line); } }
+  .brand { flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 8px 18px; border-bottom: 1px solid var(--line); }
+  .brand div { display: block !important; }
+  .logo-img { width: 132px; border-radius: 9px; }
+  .side-label { display: block; color: var(--ink-3); padding: 18px 10px 8px; font-size: 10.5px; }
+  nav.tabs { flex-direction: column; margin: 0; background: none; border: 0; padding: 0; gap: 3px; overflow: visible; }
+  nav.tabs button { width: 100%; padding: 10px 12px; border-radius: 12px; font-size: 13.5px; justify-content: flex-start; }
+  nav.tabs button svg { display: block !important; width: 18px; height: 18px; color: var(--ink-3); }
+  nav.tabs button:hover { background: var(--surface-2); }
+  nav.tabs button[aria-selected="true"] svg { color: #fff; }
+  .side-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
+  .side .theme-btn { width: 100%; }
+}
+:root[data-theme="dark"] .side { background: var(--surface); }
+.wrap { max-width: 1180px; padding: 0 26px 40px; }
+
+/* compact spacing */
+section.tab { padding-top: 22px; }
+.sec-head { margin-bottom: 14px; }
+.sec-head .eyebrow { margin-bottom: 8px; font-size: 10.5px; }
+.sec-head h2 { font-size: 23px; }
+.sec-head .lead { margin-top: 8px; font-size: 13px; }
+.grid { gap: 14px; }
+.grid[style*="margin-top:16px"], .card[style*="margin-top:16px"] { margin-top: 14px !important; }
+.card { padding: 16px 18px; border-radius: 18px; }
+.card .sub { margin-bottom: 8px; }
+.kpi { padding: 16px 18px; }
+.kpi .val { font-size: 26px; margin: 8px 0 4px; }
+.kic { width: 34px; height: 34px; top: 14px; right: 14px; border-radius: 10px; }
+.kic svg { width: 17px; height: 17px; }
+.hero-avs { margin-top: 10px; } .hero-avs img { width: 26px; height: 26px; }
+.donut-wrap { grid-template-columns: 150px 1fr; } .donut-wrap svg { width: 150px; height: 150px; }
+.focus-list { gap: 10px; } .insights li { margin-bottom: 8px; }
+#worldMap { height: 360px; }
+.gauge svg { max-width: 300px; }
+.scn-q { margin-bottom: 24px; } .scn-presets { margin: 10px 0; }
+.scn-out .big { font-size: 26px; } .scn-out .mid { font-size: 20px; }
+.ip-head img.big-av, .ip-head .big-av { width: 60px; height: 60px; border-radius: 16px; }
+.ip-name { font-size: 20px; }
+
+/* compact IP ranking */
+.rk-head, .rk-row { grid-template-columns: 1fr 120px 1fr; }
+.rk-head { margin: 10px 0 2px; font-size: 10.5px; }
+.rk-row { padding: 1px 0; border-radius: 12px; }
+.rk-left { grid-template-columns: 44px 1fr; gap: 8px; }
+.rk-left b { font-size: 13.5px; }
+.rk-bar { height: 10px; }
+.rk-mid { flex-direction: row; justify-content: flex-start; gap: 8px; padding: 2px 0 2px 10px; }
+.rk-ring { width: 34px; height: 34px; padding: 2px; flex: none; }
+.rk-ring span { font-size: 9px; }
+.rk-mid em { font-size: 10.5px; text-align: left; max-width: 70px; }
+.rk-track { height: 38px; }
+.rk-dot { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-width: 3px; }
+.rk-stem { height: 2.5px; }
+.rk-g { font-size: 12px; }
+.rk-g.clip { top: 18%; }
+@media (max-width: 760px) { .rk-head, .rk-row { grid-template-columns: 1fr 92px 1fr; } .rk-mid { flex-direction: column; align-items: center; padding-left: 0; } .rk-mid em { text-align: center; font-size: 9px; } }
+
+.side nav.tabs button[aria-selected="true"], .side nav.tabs button[aria-selected="true"]:hover { background: var(--brand) !important; color: #fff !important; box-shadow: 0 6px 16px -6px rgba(229,22,43,.55); }
+.side nav.tabs button[aria-selected="true"] svg { color: #fff !important; }
+@media (max-width: 640px) { .kpi .val { font-size: 22px; } .kpi .val small { font-size: 12px; } .hero-avs span { display: none; } }
+
+.chips2 button.play { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.gauge svg .gpeak { transition: opacity .3s; }
 </style>
 </head>
 <body>
@@ -504,6 +736,13 @@ img.big-av { width: 76px; height: 76px; border-radius: 20px; object-fit: cover; 
     <div class="card kpi" data-goto="ip" data-ip="Twinkle Twinkle" title="Click to explore"><div class="lab">Twinkle Twinkle, H1 2026</div><div class="val">2.65<small>RMB bn</small></div><div class="delta up">▲ 580.6% · 15.4% share</div></div>
     <div class="card kpi"><div class="lab">IPs above RMB 1bn</div><div class="val">7<small>in 2025</small></div><div class="delta up">▲ from 4 in 2024, 2 in 2023</div></div>
   </div>
+  <div class="card rank-card" style="margin-top:16px">
+    <div class="card-top"><div><h3>IP revenue ranking</h3><div class="sub">Revenue (RMB bn) and growth vs the prior period · click an IP for its profile</div></div>
+      <div class="mseg" id="rankMode" role="group" aria-label="Period"><button type="button" class="on" data-m="h126">H1 2026</button><button type="button" data-m="y2025">FY 2025</button></div></div>
+    <div class="rk-head"><span>Revenue, RMB bn</span><span>IP</span><span class="rk-scale" id="rankScale"></span></div>
+    <div id="ipRank"></div>
+    <div class="note" id="rankNote"></div>
+  </div>
   <div class="card" style="margin-top:16px" id="ipExplorer">
     <div class="card-top"><div><h3>IP explorer</h3><div class="sub">Pick an IP, or click any bar in the IP charts below · character images © POP MART</div></div></div>
     <div class="chips" id="ipChips"></div>
@@ -515,7 +754,7 @@ img.big-av { width: 76px; height: 76px; border-radius: 20px; object-fit: cover; 
       <div class="note">Twinkle Twinkle (+580.6%) is clipped at the right edge so the other bars stay readable.</div></div>
   </div>
   <div class="grid g-2" style="margin-top:16px">
-    <div class="card"><h3>Concentration: THE MONSTERS share of revenue</h3><div class="sub">% of group revenue</div><div class="chart" id="c_conc"></div></div>
+    <div class="card gauge-card"><h3>Concentration: THE MONSTERS share of revenue</h3><div class="sub">Pick a period · dashed line marks the 2025 peak</div><div class="gauge" id="c_gauge"></div><div class="chips2" id="gaugeChips"></div></div>
     <div class="card"><h3>IP mix, H1 2025 vs H1 2026</h3><div class="sub">% of revenue</div><div class="legend" id="l_ipmix"></div><div class="chart" id="c_ipmix"></div></div>
   </div>
 </section>
@@ -739,7 +978,7 @@ function linkHover(group, i) {
 }
 
 /* Vertical bar chart: grouped or stacked, optional 100% */
-function vbar(id, { labels, series, stacked=false, pct=false, H=260, fmtV=v=>fmt(v,1), unit="", labelTop=false, hiLast=false, onClick=null, link=null, focus=null, colors=null }) {
+function vbar(id, { labels, series, stacked=false, pct=false, H=220, fmtV=v=>fmt(v,1), unit="", labelTop=false, hiLast=false, onClick=null, link=null, focus=null, colors=null }) {
   const box = document.getElementById(id); box.innerHTML = "";
   const W = Math.max(300, box.clientWidth || 600), m = { t: 18, r: 8, b: 30, l: 42 };
   const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, box);
@@ -862,7 +1101,7 @@ function rangebar(id, { labels, lo, hi, rowH=30, labelW=118 }) {
     const yc = m.t + i * rowH + rowH / 2, sub = lab.startsWith("·");
     txt(svg, m.l - 8, yc + 4, lab, { "text-anchor": "end", style: sub ? "fill:var(--ink-3)" : "font-weight:600" });
     el("line", { x1: x(0), x2: x(hi[i]), y1: yc, y2: yc, stroke: "var(--grid)", "stroke-width": 2 }, svg);
-    el("rect", { x: x(lo[i]), y: yc - 7, width: x(hi[i]) - x(lo[i]), height: 14, rx: 4, fill: i === 0 ? "var(--c-red)" : sub ? tint("var(--rg-cn)", 45) : (REGC[D.reg.names.indexOf(lab)] || "var(--t2)"), class: "bm gxr", style: `animation-delay:${i * 50}ms` }, svg);
+    el("rect", { x: x(lo[i]), y: yc - 7, width: x(hi[i]) - x(lo[i]), height: 14, rx: 4, fill: i === 0 ? "var(--ink)" : sub ? tint("var(--rg-cn)", 45) : (REGC[D.reg.names.indexOf(lab)] || "var(--t2)"), class: "bm gxr", style: `animation-delay:${i * 50}ms` }, svg);
     const right = lo[i] < -40;
     txt(svg, right ? x(hi[i]) + 6 : x(lo[i]) - 6, yc + 4, `${lo[i]}% to ${hi[i]}%`, { "text-anchor": right ? "start" : "end", class: "dl" });
     const hit = el("rect", { x: 0, y: yc - rowH / 2, width: W, height: rowH, class: "hit" }, svg);
@@ -872,7 +1111,7 @@ function rangebar(id, { labels, lo, hi, rowH=30, labelW=118 }) {
 }
 
 /* Line chart */
-function line(id, { labels, series, H=240, min=0, max=null, fmtV=v=>fmt(v,1), unit="", endLabels=true, area=false, link=null }) {
+function line(id, { labels, series, H=210, min=0, max=null, fmtV=v=>fmt(v,1), unit="", endLabels=true, area=false, link=null }) {
   const box = document.getElementById(id); box.innerHTML = "";
   const W = Math.max(300, box.clientWidth || 600), m = { t: 16, r: 54, b: 30, l: 40 };
   const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, box);
@@ -921,32 +1160,32 @@ const INIT = { "THE MONSTERS": "TM", "Twinkle Twinkle": "TT", "SKULLPANDA": "SP"
 const tint = (c, p = 38) => `color-mix(in srgb, ${c} ${p}%, var(--surface))`;
 function render() {
   // overview
-  legend("l_trend", [["Revenue", "var(--r6)"], ["Adj. net profit", "var(--r8)"]]);
+  legend("l_trend", [["Revenue", "var(--brand)"], ["Adj. net profit", "var(--c-blue)"]]);
   draw("c_trend", line, { labels: D.years, series: [
-    { name: "Revenue", color: "var(--r6)", values: D.revenue.map(v => v / 1000), labelAll: true },
-    { name: "Adj. net profit", color: "var(--r8)", values: D.adjNP.map(v => v / 1000) }], min: 0, max: 40, fmtV: v => fmt(v, 1), unit: "", area: true, H: 270, link: "yr" });
+    { name: "Revenue", color: "var(--brand)", values: D.revenue.map(v => v / 1000), labelAll: true },
+    { name: "Adj. net profit", color: "var(--c-blue)", values: D.adjNP.map(v => v / 1000) }], min: 0, max: 40, fmtV: v => fmt(v, 1), unit: "", area: true, H: 225, link: "yr" });
   const cIdx = [0, 1, 3, 2];
-  hbar("c_catbar", { labels: cIdx.map(k => D.cat.names[k]), series: [{ name: "2025", color: "var(--r6)", values: cIdx.map(k => D.cat.y2025[k] / 1000) }], rowColors: ["var(--r6)", "var(--r5)", "var(--r4)", "var(--r3)"], fmtV: v => fmt(v, 2), unit: " bn", rowH: 52, labelW: 120 });
-  donut("c_donut", { labels: D.reg.names, values: D.reg.data[1], colors: ["var(--r6)", "var(--r8)", "var(--r4)", "var(--r2)"], center: fmt(D.revenue[4] / 1000, 2), centerSub: "RMB bn" });
+  hbar("c_catbar", { labels: cIdx.map(k => D.cat.names[k]), series: [{ name: "2025", color: "var(--r6)", values: cIdx.map(k => D.cat.y2025[k] / 1000) }], rowColors: cIdx.map(k => CATC[k]), fmtV: v => fmt(v, 2), unit: " bn", rowH: 52, labelW: 120 });
+  donut("c_donut", { labels: D.reg.names, values: D.reg.data[1], colors: REGC, center: fmt(D.revenue[4] / 1000, 2), centerSub: "RMB bn" });
   const npm = D.adjNP.map((v, i) => v / D.revenue[i] * 100);
-  legend("l_margin", [["Gross margin", "var(--r6)"], ["Adj. net margin", "var(--r3)"]]);
+  legend("l_margin", [["Gross margin", "var(--c-coral)"], ["Adj. net margin", "var(--c-teal)"]]);
   draw("c_margin", line, { labels: [...D.years, "H1 26"], series: [
-    { name: "Gross margin", color: "var(--r6)", values: [...D.gm, D.h1.gm[1]] },
-    { name: "Adj. net margin", color: "var(--r3)", values: [...npm, D.h1.npm[1]] }], min: 0, max: 80, unit: "%", fmtV: v => fmt(v, 1), link: "yr" });
-  draw("c_half", vbar, { labels: D.half.labels, series: [{ name: "Revenue", color: S(1), values: D.half.values.map(v => v / 1000) }], colors: ["var(--r3)", "var(--r6)", "var(--r4)"], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 230 });
+    { name: "Gross margin", color: "var(--c-coral)", values: [...D.gm, D.h1.gm[1]] },
+    { name: "Adj. net margin", color: "var(--c-teal)", values: [...npm, D.h1.npm[1]] }], min: 0, max: 80, unit: "%", fmtV: v => fmt(v, 1), link: "yr" });
+  draw("c_half", vbar, { labels: D.half.labels, series: [{ name: "Revenue", color: S(1), values: D.half.values.map(v => v / 1000) }], colors: ["var(--c-lilac)", "var(--brand)", "var(--c-amber)"], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 200 });
   renderScenario();
 
   // IP
   const order = D.ipNames.map((n, i) => i).filter(i => !["Other artist IPs","Licensed IPs","External & others"].includes(D.ipNames[i])).sort((a, b) => D.ip2025[b] - D.ip2025[a]);
   const ipIdx = [...order, D.ipNames.indexOf("Licensed IPs"), D.ipNames.indexOf("Other artist IPs")];
-  legend("l_ipyear", [["2024", GREY], ["2025", "var(--r6)"]]);
+  legend("l_ipyear", [["2024", GREY], ["2025 (IP colour)", "linear-gradient(90deg,var(--ip-monsters),var(--ip-molly),var(--ip-crybaby),var(--ip-skull))"]]);
   draw("c_ipyear", hbar, { onClick: selectIP, sel: SEL_IP, rowColors: ipIdx.map(i => IPC[D.ipNames[i]]), labels: ipIdx.map(i => D.ipNames[i]), series: [
     { name: "2024", color: GREY, values: ipIdx.map(i => D.ip2024[i] / 1000) },
     { name: "2025", color: S(1), values: ipIdx.map(i => D.ip2025[i] / 1000) }], fmtV: v => fmt(v, 2), unit: " bn" });
   const yoy = D.ipH1.names.map((n, i) => (D.ipH1.h126[i] / D.ipH1.h125[i] - 1) * 100);
   const yIdx = yoy.map((v, i) => i).filter(i => D.ipH1.names[i] !== "External & others").sort((a, b) => yoy[b] - yoy[a]);
   draw("c_ipyoy", divbar, { onClick: selectIP, sel: SEL_IP, rowColors: yIdx.map(i => IPC[D.ipH1.names[i]]), labels: yIdx.map(i => D.ipH1.names[i]), series: [{ name: "H1 2026 vs H1 2025", values: yIdx.map(i => yoy[i]) }], clip: [-60, 100] });
-  draw("c_conc", line, { labels: D.monstersShare.labels, series: [{ name: "THE MONSTERS share", color: "var(--ip-monsters)", values: D.monstersShare.values, labelAll: true }], min: 0, max: 50, unit: "%", area: true });
+  renderGauge(); renderRank();
   const top = ["THE MONSTERS","Twinkle Twinkle","CRYBABY","DIMOO","SKULLPANDA","MOLLY"];
   const cols = top.map(n => IPC[n]);
   const mix = lab => { const arr = lab === "h125" ? D.ipH1.h125 : D.ipH1.h126; const tot = arr.reduce((a, b) => a + b, 0);
@@ -954,15 +1193,15 @@ function render() {
   const m1 = mix("h125"), m2 = mix("h126");
   const mixSeries = [...top, "All other IPs"].map((n, k) => ({ name: n, color: k < 6 ? cols[k] : GREY, values: [m1[k], m2[k]] }));
   legend("l_ipmix", mixSeries.map(s => [s.name, s.color]));
-  draw("c_ipmix", vbar, { labels: ["H1 2025", "H1 2026"], series: mixSeries, stacked: true, pct: true, H: 280 });
+  draw("c_ipmix", vbar, { labels: ["H1 2025", "H1 2026"], series: mixSeries, stacked: true, pct: true, H: 235 });
 
   // product
   const catC = CATC;
   legend("l_cat", D.cat.names.map((n, k) => [n, catC[k]]));
-  draw("c_cat", vbar, { labels: ["2023", "2024", "2025"], series: D.cat.names.map((n, k) => ({ name: n, color: catC[k], values: [D.cat.y2023[k], D.cat.y2024[k], D.cat.y2025[k]].map(v => v / 1000) })), fmtV: v => fmt(v, 2), unit: " bn", labelTop: true, H: 270 });
+  draw("c_cat", vbar, { labels: ["2023", "2024", "2025"], series: D.cat.names.map((n, k) => ({ name: n, color: catC[k], values: [D.cat.y2023[k], D.cat.y2024[k], D.cat.y2025[k]].map(v => v / 1000) })), fmtV: v => fmt(v, 2), unit: " bn", labelTop: true, H: 225 });
   legend("l_catmix", D.cat.names.map((n, k) => [n, catC[k]]));
-  draw("c_catmix", vbar, { labels: ["2023", "2024", "2025"], series: D.cat.names.map((n, k) => ({ name: n, color: catC[k], values: [D.cat.y2023[k], D.cat.y2024[k], D.cat.y2025[k]] })), stacked: true, pct: true, H: 270 });
-  legend("l_cath1", [["H1 2025", GREY], ["H1 2026", "var(--r6)"]]);
+  draw("c_catmix", vbar, { labels: ["2023", "2024", "2025"], series: D.cat.names.map((n, k) => ({ name: n, color: catC[k], values: [D.cat.y2023[k], D.cat.y2024[k], D.cat.y2025[k]] })), stacked: true, pct: true, H: 225 });
+  legend("l_cath1", [["H1 2025", GREY], ["H1 2026 (category colour)", "linear-gradient(90deg,var(--cat-plush),var(--cat-fig),var(--cat-other))"]]);
   draw("c_cath1", hbar, { labels: D.catH1.names, series: [
     { name: "H1 2025", color: GREY, values: D.catH1.h125.map(v => v / 1000) },
     { name: "H1 2026", color: S(1), values: D.catH1.h126.map(v => v / 1000) }], rowColors: ["var(--cat-plush)", "var(--cat-fig)", "var(--cat-other)"], fmtV: v => fmt(v, 2), unit: " bn", rowH: 44, labelW: 112 });
@@ -970,24 +1209,24 @@ function render() {
   // market
   const regC = REGC;
   legend("l_reg", D.reg.names.map((n, k) => [n, regC[k]]));
-  draw("c_reg", vbar, { labels: D.reg.labels, series: D.reg.names.map((n, k) => ({ name: n, color: regC[k], values: D.reg.data.map(r => r[k] / 1000) })), stacked: true, labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 280, focus: SEL_REG, onClick: null });
-  legend("l_regyoy", [["2025", "var(--r3)"], ["H1 2026", "var(--r6)"], ["Q3 2026 (midpoint)", "var(--r9)"]]);
+  draw("c_reg", vbar, { labels: D.reg.labels, series: D.reg.names.map((n, k) => ({ name: n, color: regC[k], values: D.reg.data.map(r => r[k] / 1000) })), stacked: true, labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 235, focus: SEL_REG, onClick: null });
+  legend("l_regyoy", [["2025", "var(--c-yellow)"], ["H1 2026", "var(--c-sky)"], ["Q3 2026 (midpoint)", "var(--brand)"]]);
   draw("c_regyoy", divbar, { labels: D.regYoY.names, series: [
-    { name: "2025", color: "var(--r3)", values: D.regYoY.y2025 },
-    { name: "H1 2026", color: "var(--r6)", values: D.regYoY.h126 },
-    { name: "Q3 2026 (midpoint)", color: "var(--r9)", values: D.regYoY.q3 }], clip: [-80, 160], rowH: 56, onClick: selectReg, sel: SEL_REG });
+    { name: "2025", color: "var(--c-yellow)", values: D.regYoY.y2025 },
+    { name: "H1 2026", color: "var(--c-sky)", values: D.regYoY.h126 },
+    { name: "Q3 2026 (midpoint)", color: "var(--brand)", values: D.regYoY.q3 }], clip: [-80, 160], rowH: 46, onClick: selectReg, sel: SEL_REG });
   const chC = ["var(--c-red)", "var(--c-amber)", "var(--c-purple)", "var(--c-coral)", "var(--c-sky)", "var(--c-teal)", GREY];
   legend("l_ch", D.ch.names.map((n, k) => [n, chC[k]]));
-  draw("c_ch", vbar, { labels: D.ch.labels, series: D.ch.names.map((n, k) => ({ name: n, color: chC[k], values: D.ch.data.map(r => r[k]) })), stacked: true, pct: true, H: 280 });
+  draw("c_ch", vbar, { labels: D.ch.labels, series: D.ch.names.map((n, k) => ({ name: n, color: chC[k], values: D.ch.data.map(r => r[k]) })), stacked: true, pct: true, H: 235 });
   rangebar("c_q3", D.q3);
 
   // ops
   const stC = REGC;
   legend("l_st", D.stores.names.map((n, k) => [n, stC[k]]));
-  draw("c_st", vbar, { labels: D.stores.labels, series: D.stores.names.map((n, k) => ({ name: n, color: stC[k], values: D.stores.data.map(r => r[k]) })), stacked: true, labelTop: true, fmtV: v => fmt(v, 0), H: 260, focus: SEL_REG });
-  draw("c_mem", vbar, { labels: D.members.labels, series: [{ name: "Registered members", color: "var(--c-purple)", values: D.members.values }], labelTop: true, fmtV: v => fmt(v, 1), unit: " m", H: 260 , hiLast: true});
-  draw("c_robo", vbar, { labels: D.robo.labels, series: [{ name: "Roboshops", color: "var(--c-amber)", values: D.robo.values }], labelTop: true, fmtV: v => fmt(v, 0), H: 220 , hiLast: true});
-  draw("c_rps", vbar, { labels: D.rps.labels, series: [{ name: "Revenue per store", color: "var(--c-blue)", values: D.rps.values }], labelTop: true, fmtV: v => fmt(v, 1), unit: " m", H: 220 });
+  draw("c_st", vbar, { labels: D.stores.labels, series: D.stores.names.map((n, k) => ({ name: n, color: stC[k], values: D.stores.data.map(r => r[k]) })), stacked: true, labelTop: true, fmtV: v => fmt(v, 0), H: 220, focus: SEL_REG });
+  draw("c_mem", vbar, { labels: D.members.labels, series: [{ name: "Registered members", color: "var(--c-purple)", values: D.members.values }], labelTop: true, fmtV: v => fmt(v, 1), unit: " m", H: 220 , hiLast: true});
+  draw("c_robo", vbar, { labels: D.robo.labels, series: [{ name: "Roboshops", color: "var(--c-amber)", values: D.robo.values }], labelTop: true, fmtV: v => fmt(v, 0), H: 190 , hiLast: true});
+  draw("c_rps", vbar, { labels: D.rps.labels, series: [{ name: "Revenue per store", color: "var(--c-blue)", values: D.rps.values }], labelTop: true, fmtV: v => fmt(v, 1), unit: " m", H: 190 });
   renderIP(); renderReg(); renderMap();
 }
 
@@ -1028,7 +1267,7 @@ function ipData(n) {
 }
 function selectIP(n) {
   if (!IP_LIST.includes(n)) return;
-  SEL_IP = n; renderIP();
+  SEL_IP = n; renderIP(); renderRank();
   ["c_ipyear", "c_ipyoy"].forEach(id => { if (REG[id]) { REG[id].opts.sel = n; redraw(id); } });
 }
 function renderIP() {
@@ -1064,7 +1303,7 @@ function renderIP() {
   const labs = [], vals = [];
   [["2024", d.y24], ["2025", d.y25], ["H1 2025", d.h25], ["H1 2026", d.h26]].forEach(([l, v]) => { if (v != null) { labs.push(l); vals.push(v / 1000); } });
   document.getElementById("ipProf").style.setProperty("--chip", IPC[SEL_IP]);
-  vbar("c_ipprof", { labels: labs, series: [{ name: SEL_IP, color: IPC[SEL_IP], values: vals }], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 230, hiLast: true });
+  vbar("c_ipprof", { labels: labs, series: [{ name: SEL_IP, color: IPC[SEL_IP], values: vals }], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 200, hiLast: true });
 }
 
 
@@ -1100,7 +1339,7 @@ function renderScenario() {
 }
 function scenarioChart(id, fy, h2) {
   const box = document.getElementById(id); box.innerHTML = "";
-  const W = Math.max(300, box.clientWidth || 600), H = 250, m = { t: 22, r: 8, b: 30, l: 42 };
+  const W = Math.max(300, box.clientWidth || 600), H = 215, m = { t: 22, r: 8, b: 30, l: 42 };
   const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": `Revenue 2021 to 2025 and a 2026 scenario of RMB ${fmt(fy/1000,2)} bn` }, box);
   const defs = el("defs", {}, svg);
   const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
@@ -1179,7 +1418,7 @@ function renderReg() {
     </div>
     <div><div class="sub" style="margin-top:4px">Revenue, RMB bn (H1 = six months)</div><div class="chart" id="c_regprof"></div></div>`;
   prof.style.setProperty("--chip", k < 0 ? "var(--ink)" : REGC[k]);
-  vbar("c_regprof", { labels: D.reg.labels, series: [{ name, color: k < 0 ? "var(--c-blue)" : REGC[k], values: [r24, r25, h25, h26].map(v => v / 1000) }], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 230 });
+  vbar("c_regprof", { labels: D.reg.labels, series: [{ name, color: k < 0 ? "var(--c-blue)" : REGC[k], values: [r24, r25, h25, h26].map(v => v / 1000) }], labelTop: true, fmtV: v => fmt(v, 2), unit: " bn", H: 200 });
 }
 
 
@@ -1201,7 +1440,7 @@ const METRICS = {
   q3: { label: "Q3 2026 change (midpoint)", get: k => D.regYoY.q3[k], fmt: v => fmt(v) + "%", rankHigh: false }
 };
 let METRIC = "r25", MAP = null, MAP_LOADING = false;
-const SHADES = () => [css("--r7"), css("--r6"), css("--r4"), css("--r3")];
+const SHADES = () => ["#c8102e", "#ef3b4f", "#f58a95", "#f9c3c9"];
 function shadeIdx() {
   const m = METRICS[METRIC], vals = D.reg.names.map((n, k) => m.get(k));
   const order = vals.map((v, k) => k).sort((a, b) => m.rankHigh ? vals[b] - vals[a] : vals[a] - vals[b]);
@@ -1342,15 +1581,6 @@ const ICON = {
 const svgIcon = k => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[k]}"/></svg>`;
 const KPI_ICONS = { overview: ["yuan", "bars", "cal", "down"], ip: ["star", "down", "up", "layers"], product: ["heart", "gift", "cube", "pct"],
   market: ["globe", "pin", "store", "phone"], ops: ["store", "grid", "users", "repeat"] };
-Object.entries(KPI_ICONS).forEach(([tab, icons]) => {
-  document.querySelectorAll(`#${tab} .g-4 > .kpi`).forEach((k, i) => {
-    k.insertAdjacentHTML("afterbegin", `<span class="ki">${svgIcon(icons[i])}</span>`);
-    const d = k.querySelector(".delta"); if (!d) return;
-    const t = d.textContent.trim(), m = t.match(/^([▲▼])\s*([\d.,]+%?(?:\s*pts)?)\s*(.*)$/);
-    if (m) d.innerHTML = `<span class="pp">${m[1]} ${m[2]}</span><span>${m[3].replace(/^·\s*/, "")}</span>`;
-    else d.innerHTML = `<span class="pp">${t.charAt(0)}</span><span>${t.slice(1).trim()}</span>`;
-  });
-});
 document.querySelectorAll(".focus-list .fi").forEach(f => f.innerHTML = svgIcon(f.dataset.icon));
 const TB = { overview: "Revenue, profit and the 2026 outlook", ip: "Which characters drive sales", product: "Plush, figures and the product mix",
   market: "Regions, channels and the Q3 2026 update", ops: "Stores, Roboshops and members", data: "Tables and HKEX sources" };
@@ -1360,6 +1590,116 @@ function setTopbar(tab) {
   document.getElementById("tbTitle").textContent = b ? b.textContent.trim() : "";
   document.getElementById("tbSub").textContent = TB[tab] || "";
 }
+
+
+/* =========================== IP REVENUE RANKING =========================== */
+let RANK_MODE = "h126";
+function renderRank() {
+  const box = document.getElementById("ipRank"); if (!box) return;
+  let rows;
+  if (RANK_MODE === "h126") rows = D.ipH1.names.map((n, i) => ({ n, v: D.ipH1.h126[i], p: D.ipH1.h125[i] }));
+  else rows = D.ipNames.map((n, i) => ({ n, v: D.ip2025[i], p: D.ip2024[i] }));
+  rows = rows.filter(r => r.n !== "External & others").map(r => ({ ...r, g: (r.v / r.p - 1) * 100 })).sort((a, b) => b.v - a.v);
+  const maxV = Math.max(...rows.map(r => r.v));
+  const lo = -60, hi = RANK_MODE === "h126" ? 120 : 400;
+  const X = g => (Math.max(lo, Math.min(hi, g)) - lo) / (hi - lo) * 100, z = X(0);
+  const ticks = RANK_MODE === "h126" ? [-50, 0, 50, 100] : [0, 100, 200, 300, 400];
+  document.getElementById("rankScale").innerHTML = ticks.map(t => `<span style="left:${X(t)}%">${t > 0 ? "+" : ""}${t}%</span>`).join("");
+  box.innerHTML = rows.map(r => {
+    const col = IPC[r.n] || "var(--ip-other)", gx = X(r.g), clipped = r.g > hi;
+    const av = PHOTO[r.n] ? `<img src="${PHOTO[r.n]}" alt="">` : `<span>${INIT[r.n] || (r.n === "Other artist IPs" ? "ART" : "IP")}</span>`;
+    const left = Math.min(z, gx), w = Math.abs(gx - z);
+    return `<div class="rk-row${r.n === SEL_IP ? " on" : ""}" data-n="${r.n}" style="--ipc:${col}">
+      <div class="rk-left"><b class="num">${fmt(r.v / 1000, 2)}</b><div class="rk-bar"><span data-w="${r.v / maxV * 100}"></span></div></div>
+      <button type="button" class="rk-mid" aria-label="Open ${r.n} profile"><span class="rk-ring">${av}</span><em>${r.n}</em></button>
+      <div class="rk-right"><div class="rk-track">${ticks.map(t => `<i class="rk-grid${t === 0 ? " zero" : ""}" style="left:${X(t)}%"></i>`).join("")}
+        <span class="rk-stem" style="left:${left}%;width:${w}%"></span><span class="rk-dot${r.g < 0 ? " neg" : ""}" style="left:${gx}%"></span>
+        <b class="rk-g ${r.g < 0 ? "neg" : ""}${clipped ? " clip" : ""}" style="${r.g < 0 || clipped ? `right:${100 - gx + 3}%` : `left:${gx + 3}%`}">${r.g > 0 ? "+" : ""}${fmt(r.g)}%${clipped ? " ▸" : ""}</b></div></div>
+    </div>`;
+  }).join("");
+  requestAnimationFrame(() => requestAnimationFrame(() => box.querySelectorAll(".rk-bar span").forEach(s => s.style.width = s.dataset.w + "%")));
+  box.querySelectorAll(".rk-row").forEach(row => row.querySelector(".rk-mid").addEventListener("click", () => {
+    if (!IP_LIST.includes(row.dataset.n)) return;
+    selectIP(row.dataset.n); document.getElementById("ipExplorer").scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+  document.getElementById("rankNote").textContent = RANK_MODE === "h126"
+    ? "Growth = H1 2026 vs H1 2025. Twinkle Twinkle (+580.6%) runs past the right edge."
+    : "Growth = 2025 vs 2024. Twinkle Twinkle (+1,601.7%) and THE MONSTERS (+365.7%) are clipped at +400%.";
+}
+(function initRank() {
+  const seg = document.getElementById("rankMode"); if (!seg) return;
+  seg.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    seg.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); RANK_MODE = b.dataset.m; renderRank(); }));
+})();
+
+/* =========================== CONCENTRATION GAUGE (animated) =========================== */
+let GAUGE_I = D.monstersShare.values.length - 1, GAUGE_SHOWN = 0, GAUGE_PLAY = null;
+function renderGauge(fromZero) {
+  const box = document.getElementById("c_gauge"); if (!box) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const v = D.monstersShare.values[GAUGE_I], peak = Math.max(...D.monstersShare.values), MAXG = 50, N = 34;
+  const cx = 160, cy = 150, R1 = 112, R2 = 142;
+  if (!box.querySelector("svg")) {
+    let svg = `<svg viewBox="0 0 320 175" role="img">`;
+    for (let i = 0; i < N; i++) {
+      const a = Math.PI * (1 - i / (N - 1));
+      svg += `<line class="gseg" x1="${(cx + R1 * Math.cos(a)).toFixed(1)}" y1="${(cy - R1 * Math.sin(a)).toFixed(1)}" x2="${(cx + R2 * Math.cos(a)).toFixed(1)}" y2="${(cy - R2 * Math.sin(a)).toFixed(1)}" stroke="var(--grid)" stroke-width="7" stroke-linecap="round"/>`;
+    }
+    const pa = Math.PI * (1 - peak / MAXG);
+    svg += `<g class="gpeak"><line x1="${(cx + (R1 - 10) * Math.cos(pa)).toFixed(1)}" y1="${(cy - (R1 - 10) * Math.sin(pa)).toFixed(1)}" x2="${(cx + (R2 + 8) * Math.cos(pa)).toFixed(1)}" y2="${(cy - (R2 + 8) * Math.sin(pa)).toFixed(1)}" stroke="var(--brand)" stroke-width="2.5" stroke-dasharray="3 3"/>`;
+    svg += `<text x="${(cx + (R2 + 18) * Math.cos(pa)).toFixed(1)}" y="${(cy - (R2 + 18) * Math.sin(pa)).toFixed(1)}" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:var(--brand)">peak ${fmt(peak)}%</text></g>`;
+    svg += `<text class="gval" x="${cx}" y="${cy - 22}" text-anchor="middle" style="font-size:38px;font-weight:800;fill:var(--ink);letter-spacing:-1px">0.0%</text>`;
+    svg += `<text class="gsub" x="${cx}" y="${cy}" text-anchor="middle" style="font-size:12px;fill:var(--ink-3)"></text>`;
+    svg += `<text x="${cx - R2 + 15}" y="${cy + 20}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">0%</text><text x="${cx + R2 - 15}" y="${cy + 20}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">50%</text></svg>`;
+    box.innerHTML = svg; GAUGE_SHOWN = 0; fromZero = true;
+  }
+  const svgEl = box.querySelector("svg");
+  svgEl.setAttribute("aria-label", `THE MONSTERS share of revenue ${fmt(v)}% in ${D.monstersShare.labels[GAUGE_I]}`);
+  const segs = [...svgEl.querySelectorAll(".gseg")];
+  const from = fromZero ? 0 : GAUGE_SHOWN, up = v >= from;
+  segs.forEach((l, i) => {
+    const t = i / (N - 1) * MAXG, on = t <= v + 1e-9, wasOn = t <= from + 1e-9;
+    const order = up ? i : (N - 1 - i);
+    l.style.transition = reduce ? "none" : `stroke .18s ease ${on !== wasOn || fromZero ? Math.abs(order - (up ? 0 : 0)) * 18 : 0}ms`;
+    if (fromZero && !reduce) l.setAttribute("stroke", "var(--grid)");
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => segs.forEach((l, i) => l.setAttribute("stroke", i / (N - 1) * MAXG <= v + 1e-9 ? "var(--ip-monsters)" : "var(--grid)"))));
+  const val = svgEl.querySelector(".gval"), t0 = performance.now(), dur = reduce ? 0 : 700;
+  const tick = t => { const p = dur ? Math.min(1, (t - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3); val.textContent = fmt(from + (v - from) * e) + "%"; if (p < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+  svgEl.querySelector(".gsub").textContent = `of revenue, ${D.monstersShare.labels[GAUGE_I]}`;
+  svgEl.querySelector(".gpeak").style.opacity = GAUGE_I >= D.monstersShare.values.indexOf(peak) ? 1 : .35;
+  GAUGE_SHOWN = v;
+  const ch = document.getElementById("gaugeChips");
+  ch.innerHTML = D.monstersShare.labels.map((l, i) => `<button type="button" class="${i === GAUGE_I ? "on" : ""}" data-i="${i}">${l}</button>`).join("")
+    + `<button type="button" class="play" id="gaugePlay">${GAUGE_PLAY ? "■ Stop" : "▶ Play"}</button>`;
+  ch.querySelectorAll("button[data-i]").forEach(b => b.addEventListener("click", () => { stopGauge(); GAUGE_I = +b.dataset.i; renderGauge(); }));
+  document.getElementById("gaugePlay").addEventListener("click", () => GAUGE_PLAY ? stopGauge(true) : playGauge());
+}
+function stopGauge(rerender) { if (GAUGE_PLAY) { clearInterval(GAUGE_PLAY); GAUGE_PLAY = null; if (rerender) renderGauge(); } }
+function playGauge() {
+  GAUGE_I = 0; renderGauge(true);
+  GAUGE_PLAY = setInterval(() => {
+    if (GAUGE_I >= D.monstersShare.values.length - 1) { stopGauge(true); return; }
+    GAUGE_I++; renderGauge();
+  }, 1300);
+}
+/* replay the fill when the gauge scrolls into view */
+(function gaugeObserver() {
+  const box = document.getElementById("c_gauge"); if (!box || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !GAUGE_PLAY) renderGauge(true); }), { threshold: .5 }).observe(box);
+})();
+
+/* =========================== HERO AVATARS + KPI CHIPS =========================== */
+(function decorate() {
+  const hero = document.querySelector("#overview .kpi.hero");
+  if (hero) {
+    const top = ["THE MONSTERS", "MOLLY", "SKULLPANDA", "CRYBABY", "DIMOO"];
+    hero.insertAdjacentHTML("beforeend", `<div class="hero-avs"><div class="stack">${top.map(n => PHOTO[n] ? `<img src="${PHOTO[n]}" alt="${n}" title="${n}">` : "").join("")}</div><span>Top 5 IPs</span></div>`);
+  }
+  const KI = { overview: ["yuan", "bars", "cal", "down"], ip: ["star", "down", "up", "layers"], product: ["heart", "gift", "cube", "pct"], market: ["globe", "pin", "store", "phone"], ops: ["store", "grid", "users", "repeat"] };
+  Object.entries(KI).forEach(([tab, icons]) => document.querySelectorAll(`#${tab} .g-4 > .kpi`).forEach((k, i) => k.insertAdjacentHTML("afterbegin", `<span class="kic">${svgIcon(icons[i])}</span>`)));
+})();
 
 /* =========================== CLICK-THROUGH =========================== */
 function goTab(t) { document.querySelector(`nav.tabs button[data-tab="${t}"]`)?.click(); }
