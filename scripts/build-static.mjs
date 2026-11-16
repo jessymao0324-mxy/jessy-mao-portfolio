@@ -11,7 +11,7 @@ for (const file of ["index.html", "styles.css", "experience-overrides.css", "scr
   copyFileSync(join(root, file), join(dist, file));
 }
 
-for (const directory of ["assets", "data", "canva-assets"]) {
+for (const directory of ["assets", "data", "canva-assets", "popmart"]) {
   const source = join(root, directory);
   if (existsSync(source)) {
     cpSync(source, join(dist, directory), {
